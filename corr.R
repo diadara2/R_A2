@@ -8,19 +8,15 @@ corr<-function(directory, threshold= 0){
     naR <- na.omit(d)
     n <- c(n, nrow(naR))
   }
-  
   data <- data.frame(id = id, nobs = n)
-  dim(data)
-  
-  for(i in id){
-    if((data[[2]])>=threshold){
-      correl <- round(cor(d$nitrate, d$sulfate), digits = 5)
-      corvector <- c(corvector, correl)
-    }
-    corvector
+  dfSub <- data[data$nobs >=threshold,]
+  Tid<-dfSub$id
+  cr<-vector()
+  for (i in Tid){
+  dd<-read.csv(f[i])
+  dd=na.omit(dd)
+  cr<-c(cr,cor(dd$nitrate,dd$sulfate))
   }
-  
-  
-  
+  cr
   
 }
